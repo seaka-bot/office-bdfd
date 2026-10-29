@@ -1,0 +1,54 @@
+$nomention
+$nomention
+$textSplit[$customID;_]
+$onlyIf[$splitText[1]==loja; ]
+$onlyIf[$getTextSplitIndex[$authorID]!=-1; ]
+
+$if[$splitText[2]==move]
+$var[item;$calculate[$splitText[3]$splitText[4]]]
+$textSplit[$getVar[ItensCasa];/]
+$if[$var[item]<=0]$var[item;$getTextSplitLength]$endif
+$if[$var[item]>$getTextSplitLength]$var[item;1]$endif
+$textSplit[$splitText[$var[item]];-]
+$var[itemID;$splitText[2]] 
+
+$removeButtons
+$textSplit[$getVar[ItensCasa];/]
+$var[a;1]$var[code1;$repeatMessage[10;$|var[split$|var[a\]%|{-SEMICOL-}%$|splitText[$|var[a\]\]\] $|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]]] $var[code1;$repeatMessage[10;$var[code1]]] $eval[$replaceText[$var[code1];|;;-1]]
+$var[a;0]$var[code2;$repeatMessage[10;$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]$|textSplit[$|var[split$|var[a\]\]%|{-SEMICOL-}%-\]$|if[$s|plitText[1\]!=\]$|splitText[4\] - [$|splitText[2\]\]$|if[$|var[item\]==$|var[a\]\](https://$|splitText[2\])$|endif **R$$|numberSeparator[$|splitText[3\]%|{-SEMICOL-}%.\]**
+$|endif]] 
+$addField[Loja;
+**`(preview - nome - preço)` **
+$eval[$replaceText[$var[code2];|;;-1]]]
+$addButton[no;loja_move_$var[item]_-1_$authorID;;secondary;no;⬆️]
+$addButton[no;loja_compra_$var[item]_$authorID;comprar;secondary]
+$addButton[no;loja_move_$var[item]_+1_$authorID;;secondary;no;⬇️]
+$endif
+
+$if[$splitText[2]==compra]
+$var[item1;$splitText[3]]
+$textSplit[$getVar[ItensCasa];/]
+$textSplit[$splitText[$var[item1]];-]
+$var[item;$splitText[1]] 
+$if[$getVar[saldo;$authorID]<$splitText[3]]$ephemeral Você não tem dinheiro suficiente para efetuar essa compra. $stop $endif
+$var[preço;$splitText[3]] $var[nome;$splitText[2]] $var[id;$splitText[1]] $var[emoji;$splitText[4]]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$var[bool;false]
+$var[a;1]
+$var[code;$repeatMessage[10;$|textSplit[$|splitText[$|var[a\]\]%|{-SEMICOL-}%-\]$|if[$|var[item\]==$|splitText[2\]\]$|var[bool%|{-SEMICOL-}%true\]$|var[pos%|{-SEMICOL-}%$|var[a\]\] $|stop$|endif $|var[a%|{-SEMICOL-}%$|calculate[$|var[a\]+1\]\]$|textSplit[$|getVar[InvCasa%|{-SEMICOL-}%$|authorID\]%|{-SEMICOL-}%/\]]] $var[code;$repeatMessage[10;$var[code]]] $eval[$replaceText[$var[code];|;;-1]]
+$if[$var[bool]==true]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$textSplit[$splitText[$var[pos]];-]
+$editSplitText[1;$sum[$splitText[1];1]]
+$var[edited;$joinSplitText[-]]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$editSplitText[$var[pos];$var[edited]]
+$setVar[InvCasa;$joinSplitText[/];$authorID]
+
+$else
+$var[split;1-$var[id]-$var[nome]-$var[emoji]]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$setVar[InvCasa;$joinSplitText[/]$if[$getTextSplitLength>0]/$endif$var[split];$authorID]
+$endif
+$ephemeral $removeButtons Sucesso!
+$endif
