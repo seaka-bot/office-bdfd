@@ -1,0 +1,84 @@
+$nomention
+$textSplit[$customID;_]
+$onlyIf[$splitText[1]==escritório; ]
+$onlyIf[$getTextSplitIndex[$authorID]!=-1; ] 
+$if[$splitText[2]==int]
+$var[user;$splitText[4]]
+$var[id;$splitText[5]]
+$var[9;1] $var[10;2] $var[16;3] $var[17;4]
+$var[33;5] $var[34;6] $var[40;7] $var[41;8] 
+$if[$var[id]==1]
+$ephemeral
+$removeButtons
+$textSplit[$getVar[FuncAuto;$authorID];/]
+$textSplit[$splitText[$var[$var[user]]];-]
+$addField[Contrate uma pessoa!;
+nome: "$splitText[4]"
+rendimento: vai te gerar R$ **$numberSeparator[$splitText[2]]** p/s
+preço: R$ **$numberSeparator[$splitText[3]]**]
+$addButton[no;escritório_comprar_$authorID_$var[user]_$var[$var[user]];comprar;primary]
+$endif
+$if[$var[id]==2]
+$ephemeral 
+$removeButtons
+$textSplit[$getVar[FuncAuto;$authorID];/]
+$textSplit[$splitText[$var[$var[user]]];-]
+$addField[Você disse olá para $splitText[4];
+nível atual "$splitText[1]" 
+rendimento R$ **$numberSeparator[$splitText[2]]** p/s
+preço para atualizar  R$ **$numberSeparator[$splitText[3]]**]
+$addButton[no;escritório_comprar_$authorID_$var[user]_$var[$var[user]];atualizar;secondary]
+$endif
+$if[$var[id]==3]
+$ephemeral
+$removeButtons
+$var[s;$sub[$getTimestamp[s];$getVar[TimeAuto;$authorID]]]
+$if[$getVar[TimeAuto;$authorID]==0]
+$addField[Comecei a anotar seu tempo!; ]
+$setVar[TimeAuto;$getTimestamp[s];$authorID]
+$else
+$var[dinheiro;$multi[$var[s];$getVar[VzAuto;$authorID]]]
+$addField[Você farmou por $var[s] segundos;e nesse tempo, você gerou R$ **$numberSeparator[$var[dinheiro ];.]**]
+$setVar[TimeAuto;0;$authorID]
+$setVar[saldo;$sum[$getVar[saldo;$authorID];$var[dinheiro]];$authorID]
+$endif
+$endif
+
+$endif
+
+$if[$splitText[2]==comprar]
+$ephemeral
+$var[user;$splitText[4]]
+$var[id;$splitText[5]]
+$textSplit[$getVar[FuncAuto];/]
+$textSplit[$splitText[$var[id]];-]
+$onlyIf[$getVar[saldo;$authorID]>=$splitText[3]; `Você não tem essa quantidade de dinheiro!`]
+$var[b;$splitText[2]]
+$setVar[VzAuto;$sum[$getVar[VzAuto;$authorID];$splitText[2]];$authorID]
+$textSplit[$getVar[FuncAuto;$authorID];/]
+$textSplit[$splitText[$var[id]];-]
+$var[preço;$splitText[3]]
+$setVar[saldo;$sub[$getVar[saldo;$authorID];$splitText[3]];$authorID]
+$var[splitText;$sum[$splitText[1];1]-$if[$splitText[1]==0]$splitText[2]$else $sum[$splitText[2];$var[b]]$endif-$round[$multi[$splitText[3];1.7]]-$splitText[4]]
+$removeButtons
+$textSplit[$var[splitText];-]
+$addField[Você contratou/atualizou alguém!;
+funcionário "$splitText[4]"
+nível "$splitText[1]" 
+rendimento R$ **$numberSeparator[$splitText[2]]** p/s
+Você pagou R$ **$numberSeparator[$var[preço]]** Por el@!]  
+$textSplit[$getVar[FuncAuto;$authorID];/]
+$editSplitText[$var[id];$var[splitText]]
+$setVar[FuncAuto;$joinSplitText[/];$authorID]
+$textSplit[$getVar[MapaAuto;$authorID];-]
+$editSplitText[$var[user];2]
+$setVar[MapaAuto;$joinSplitText[-];$authorID]
+$endif
+
+$if[$var[id]==8]
+$removeButtons
+$var[user;44]
+$addButton[no;casa_malha_+0_$authorID_$var[user];Entrar;secondary]  
+$textSplit[$getVar[MapaCasa;$authorID];-] $var[a;1] 
+$description[casa]
+$endif

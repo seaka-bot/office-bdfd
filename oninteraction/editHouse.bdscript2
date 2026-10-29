@@ -1,0 +1,90 @@
+$nomention
+$textSplit[$customID;_]
+$onlyIf[$splitText[1]==casa; ]
+$onlyIf[$getTextSplitIndex[$authorID]!=-1; ]
+$var[largura;7]
+$var[altura;7]
+$var[1;<:1_:1180711668586664068>]
+$var[2;<:2_:1180711712593285200>]
+$var[3;<:3_:1180712208917876768>]
+$var[5;<:5_:1180712805318537286>]
+$var[6;<:6_:1180712883366133811>]
+$var[7;<:7_:1180714647037415485>]
+$var[8;<:8_:1180907493900177478>]
+$var[u;❎]
+$var[0;<:10:1180907496374812743>]
+$textSplit[$getVar[ItensCasa];/]
+$var[a;1]$var[emojis;$repeatMessage[10;$|textSplit[$|splitText[$|var[a\]\]%|{-SEMICOL-}%-\]$|var[$|splitText[1\]%|{-SEMICOL-}%$|splitText[4\]\] $|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\] $|textSplit[$|getVar[ItensCasa\]%|{-SEMICOL-}%/\]  $|if[$|splitText[$|var[a\]\]==\]$|stop$|endif]] $var[emojis;$repeatMessage[10;$var[emojis]]] $eval[$replaceText[$var[emojis];|;;-1]]
+$textSplit[$customID;_]
+
+$var[ambiente;MapaCasa]
+$var[4;<:9_:1180907492029505668>]
+$var[local;casa] 
+
+$if[$splitText[2]==edit]
+$removeButtons
+$var[user;$calculate[$splitText[5]$splitText[3]]]$var[userB;$splitText[5]]
+$c[quais lugares vão ser bloqueados na malha? max:10]
+$var[block;4 5] $var[a;1] $textSplit[$var[block]; ] $var[codeblock;$repeatMessage[$getTextSplitLength;$|var[block$|var[a\]%|{-SEMICOL-}%$|splitText[$|var[a\]\]\]$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\] ]] $eval[$replaceText[$var[codeblock];|;;-1]]
+$textSplit[$getVar[$var[ambiente];$authorID];-] $var[a;1]
+$var[codeblock;$repeatMessage[10;$|if[$|splitText[$|var[user\]\]==$|var[block$|var[a\]\]\]$|var[user%|{-SEMICOL-}%$|var[userB\]\]$|endif$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]]] $eval[$replaceText[$var[codeblock];|;;-1]]
+$addButton[no;$var[local]_edit_-1_$authorID_$var[user];;primary;no;⬅️]
+$addButton[no;$var[local]_edit_-7_$authorID_$var[user];;primary;no;⬆️] 
+$addButton[no;$var[local]_edit_+7_$authorID_$var[user];;primary;no;⬇️]
+$addButton[no;$var[local]_edit_+1_$authorID_$var[user];;primary;no;➡️] 
+$var[i;0]$var[a;1]$var[fileira;$var[largura]]
+$var[code;$repeatMessage[$var[altura];$|var[i%|{-SEMICOL-}%$|sum[$|var[i\]%|{-SEMICOL-}%1\]\]$|if[$|var[user\]==$|var[i\]\]$|var[u\]$|elseif[i!=\]$|var[$|splitText[$|var[i\]\]\]$|endif$|if[$|var[fileira\]==$|var[i\]\]
+$|var[fileira%|{-SEMICOL-}%$|sum[$|var[fileira\]%|{-SEMICOL-}%$|var[largura\]\]\]$|endif]]
+$var[code;$repeatMessage[$var[largura];$var[code]]]
+$description[$eval[$replaceText[$var[code];|;;-1]]]
+$addButton[no;$var[local]m_store_$authorID_$var[user]_$splitText[$var[user]];Guardar;secondary] 
+$addButton[yes;casa_invP_0_$authorID_1;escolher Móvel;secondary]
+$endif
+
+$if[$splitText[2]==inv]
+
+$removeButtons
+$var[item;1]
+$addButton[no;casa_invP_-1_$authorID_$splitText[5]; ;secondary;no;⬆️]
+$addButton[no;casa_invS_0_$authorID_$splitText[5]; ;secondary;no;⏺️]
+$addButton[no;casa_invP_+1_$authorID_$splitText[5]; ;secondary;no;⬇️]
+$var[user;47]
+$addButton[yes;casa_malha_+1_$authorID_$var[user];Voltar;danger]
+
+
+$textSplit[$getVar[InvCasa;$authorID];/]
+
+$var[a;1]$var[code1;$repeatMessage[10;$|var[split$|var[a\]%|{-SEMICOL-}%$|splitText[$|var[a\]\]\] $|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]]] $var[code1;$repeatMessage[5;$var[code1]]] $eval[$replaceText[$var[code1];|;;-1]]
+$var[a;0]$var[code2;$repeatMessage[10;$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]$|textSplit[$|var[split$|var[a\]\]%|{-SEMICOL-}%-\]$|if[$s|plitText[1\]!=\]**$|splitText[1\].** - [$|splitText[3\]\]$|if[$|var[item\]==$|var[a\]\](https://$|splitText[3\])$|endif  $|splitText[4\]
+$|endif]] $var[code2;$repeatMessage[5;$var[code2]]] 
+ 
+$addField[Itens;
+**`(quantidade. - Item)` **
+$eval[$replaceText[$var[code2];|;;-1]]]
+
+$endif
+
+$if[$splitText[2]==invP]
+$var[item;$calculate[$splitText[5]$splitText[3]]]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$if[$and[$splitText[1]==;$splitText[2]==]==true]$removeButtons $ephemeral Bom.. parece que não tem nada aqui... que tal visitar a **s$getServerVar[Prefixo]loja**$stop $endif
+$if[$var[item]<=1]$var[item;$getTextSplitLength]$endif
+$if[$var[item]>$getTextSplitLength]$var[item;2]$endif
+$textSplit[$splitText[$var[item]];-]
+$var[itemID;$splitText[2]] 
+$textSplit[$customID;_]
+$removeButtons 
+$addButton[no;casa_invP_-1_$authorID_$var[item]; ;secondary;no;⬆️]
+$addButton[no;casam_inv_0_$authorID_$var[item]_1_$var[itemID]; ;secondary;no;⏺️]
+$addButton[no;casa_invP_+1_$authorID_$var[item]; ;secondary;no;⬇️]
+$var[user;47]
+$addButton[yes;casa_malha_+1_$authorID_$var[user];Voltar;danger]
+$textSplit[$getVar[InvCasa;$authorID];/]
+$var[a;1]$var[code1;$repeatMessage[10;$|var[split$|var[a\]%|{-SEMICOL-}%$|splitText[$|var[a\]\]\] $|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]]] $var[code1;$repeatMessage[5;$var[code1]]] $eval[$replaceText[$var[code1];|;;-1]]
+$var[a;0]$var[code2;$repeatMessage[10;$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]$|textSplit[$|var[split$|var[a\]\]%|{-SEMICOL-}%-\]$|if[$s|plitText[1\]!=\]**$|splitText[1\].** - [$|splitText[3\]\]$|if[$|var[item\]==$|var[a\]\](https://$|splitText[3\])$|endif $|splitText[4\]
+$|endif]] $var[code2;$repeatMessage[5;$var[code2]]] 
+$addField[Itens;
+**`(quantidade. - Item)` **
+$eval[$replaceText[$var[code2];|;;-1]]]
+$endif
+

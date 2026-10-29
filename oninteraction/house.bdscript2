@@ -1,0 +1,47 @@
+$nomention
+$textSplit[$customID;_]
+
+$onlyIf[$splitText[1]==casa; ]
+$onlyIf[$getTextSplitIndex[$authorID]!=-1; ]
+$try
+$var[largura;7]
+$var[altura;7]
+$var[1;<:1_:1180711668586664068>]
+$var[2;<:2_:1180711712593285200>]
+$var[3;<:3_:1180712208917876768>]
+$var[5;<:5_:1180712805318537286>]
+$var[6;<:6_:1180712883366133811>]
+$var[7;<:7_:1180714647037415485>]
+$var[8;<:8_:1180907493900177478>]
+$var[u;<:u_:1180711750992154695>]
+$var[0;<:10:1180907496374812743>]
+$var[ambiente;MapaCasa]
+$var[4;<:9_:1180907492029505668>]
+
+$textSplit[$getVar[ItensCasa];/]
+$var[a;1]$var[emojis;$repeatMessage[10;$|textSplit[$|splitText[$|var[a\]\]%|{-SEMICOL-}%-\]$|var[$|splitText[1\]%|{-SEMICOL-}%$|splitText[4\]\]$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\] $|textSplit[$|getVar[ItensCasa\]%|{-SEMICOL-}%/\]  $|if[$|splitText[$|var[a\]\]==\]$|stop$|endif]]$var[emojis;$repeatMessage[2;$var[emojis]]] $eval[$replaceText[$var[emojis];|;;-1]]
+$textSplit[$customID;_]
+
+$var[local;casa]
+$var[ambiente;MapaCasa]
+$if[$splitText[2]==malha]
+$removeButtons
+$var[user;$calculate[$splitText[5]$splitText[3]]]$var[userB;$splitText[5]]
+$c[quais lugares vão ser bloqueados na malha? max:10]
+$var[block;4 5] $var[a;1] $textSplit[$var[block]; ] $var[codeblock;$repeatMessage[$getTextSplitLength;$|var[block$|var[a\]%|{-SEMICOL-}%$|splitText[$|var[a\]\]\]$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\] ]] $eval[$replaceText[$var[codeblock];|;;-1]]
+$textSplit[$getVar[$var[ambiente];$authorID];-] $var[a;1]
+$var[codeblock;$repeatMessage[10;$|if[$|splitText[$|var[user\]\]==$|var[block$|var[a\]\]\]$|var[user%|{-SEMICOL-}%$|var[userB\]\]$|endif$|var[a%|{-SEMICOL-}%$|sum[$|var[a\]%|{-SEMICOL-}%1\]\]]] $eval[$replaceText[$var[codeblock];|;;-1]]
+$addButton[no;$var[local]_malha_-1_$authorID_$var[user];;primary;no;⬅️]
+$addButton[no;$var[local]_malha_-7_$authorID_$var[user];;primary;no;⬆️] 
+$addButton[no;$var[local]_malha_+7_$authorID_$var[user];;primary;no;⬇️]
+$addButton[no;$var[local]_malha_+1_$authorID_$var[user];;primary;no;➡️] 
+$var[i;0]$var[a;1]$var[fileira;$var[largura]]
+$var[code;$repeatMessage[$var[altura];$|var[i%|{-SEMICOL-}%$|sum[$|var[i\]%|{-SEMICOL-}%1\]\]$|if[$|var[user\]==$|var[i\]\]$|var[u\]$|elseif[i!=\]$|var[$|splitText[$|var[i\]\]\]$|endif$|if[$|var[fileira\]==$|var[i\]\]
+$|var[fileira%|{-SEMICOL-}%$|sum[$|var[fileira\]%|{-SEMICOL-}%$|var[largura\]\]\]$|endif]]
+$var[code;$repeatMessage[$var[largura];$var[code]]]
+$description[$eval[$replaceText[$var[code];|;;-1]]]
+$addButton[yes;casa_edit_1_$authorID_$var[user];editar casa;secondary]
+$endif
+$catch
+$error[Message]
+$endtry
