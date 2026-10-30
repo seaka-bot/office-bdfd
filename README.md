@@ -1,11 +1,19 @@
-# Office
+<div align="center">
+
+<img src="https://mnsa.com.br/assets/img/github/office-capa.png" alt="Office — Seaka-bot" width="100%">
 
 **Um escritório em pixel art dentro do Discord.** Você anda por um mapa 7×7 de emojis, contrata funcionários que geram dinheiro por segundo, bate o ponto pra receber e, pela porta, entra na sua casa pra decorar com móveis comprados na loja.
 
 [Outros projetos do Seaka](https://github.com/seaka-bot)
 
+</div>
+
 > [!WARNING]
 > **Código de acervo.** Foi escrito pra uma versão antiga do BDFD e não é mantido. Depende de um `saldo` que vinha do sistema de economia do bot (veja [o que não está aqui](#o-que-não-está-aqui)).
+
+## Funcionando
+
+<img src="https://mnsa.com.br/assets/img/github/office-demo.gif" alt="Demonstração do Office no Discord: andar pelo mapa, parar na mesa, contratar o Robso e seguir andando" width="100%">
 
 ## Arquivos
 
@@ -118,20 +126,34 @@ O inventário (`InvCasa`) começa vazio e guarda `quantidade-id-nome-emoji/...`.
 
 ## Emojis do mapa
 
-Os quadrados do mapa são emojis customizados do meu servidor, com o ID fixo no código. **Não vão aparecer no seu.** Suba os seus e troque o `<:nome:id>` nestas linhas, que se repetem no começo de cada arquivo:
+Os quadrados do mapa são emojis customizados. Os da pasta [`emojis/`](emojis) já têm o nome que o código usa:
+
+| Arquivo | Número no mapa | O que é |
+|---|---|---|
+| `0_.png` | `0` | chão do escritório |
+| `1_.png` | `1` | mesa vazia |
+| `2_.png` | `2` | mesa com funcionário |
+| `3_.png` | `3` | relógio de ponto |
+| `4_.png` | `4` | parede |
+| `5_.png` | `5` | parede com janela |
+| `6_.png` | `6` | estante |
+| `7_.png` | `7` | sofá |
+| `8_.png` | `8` | porta |
+| `u_.png` | — | o jogador |
+| `9_.png` | `4` na casa | parede da casa |
+| `10.png` | `0` na casa | chão da casa |
+
+**Como instalar:**
+
+1. Suba os 12 arquivos como emojis no seu servidor. O Discord usa o nome do arquivo como nome do emoji, então não renomeie.
+2. No Discord, digite `\:0_:` e envie. Aparece `<:0_:123456789>`: esse número é o ID do emoji no **seu** servidor.
+3. Troque o ID antigo pelo seu nas linhas que ficam no começo de cada arquivo:
 
 ```bdfd
-$var[0;<:0_:...>]   ← chão
-$var[1;<:1_:...>]   ← mesa vazia
-$var[2;<:2_:...>]   ← mesa com funcionário
-$var[3;<:3_:...>]   ← ponto
-$var[4;<:4_:...>]   ← parede
-...
-$var[8;<:8_:...>]   ← porta
-$var[u;<:u_:...>]   ← o jogador
+$var[0;<:0_:1180711610319380520>]   ← troque 1180711610319380520 pelo ID do seu 0_
 ```
 
-Na casa, o chão é `<:10:...>` e a parede é `<:9_:...>`. No modo de edição, o jogador aparece como ❎.
+Os IDs que estão no código são do meu servidor; sem trocar, o mapa aparece como texto. No modo de edição da casa, o jogador aparece como ❎ (emoji padrão, não precisa subir).
 
 ## Permissões
 
@@ -163,3 +185,5 @@ O bot precisa de **Inserir links** (Embed Links) no canal.
 ## Créditos
 
 Por **hirozn** · [mnsa.com.br](https://mnsa.com.br)
+
+Os emojis da pasta `emojis/` (pixel art 16×16, ampliada pra 128×128) foram desenhados pra este repositório. Pode usar, mudar e redistribuir à vontade.
